@@ -11,6 +11,8 @@ import MyPage from './Pages/MyPage';
 import TestType from './Pages/TestType';
 import Test from './Pages/Test';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const MainApp = () => {
     return (
         <>

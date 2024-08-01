@@ -6,21 +6,27 @@ const Header = () => {
     return (
         <>
 
-            <div>
-                <Link to="/test-type">진로 심리 검사</Link>
-            </div>
-            <div>
-                <Link to="/consultation">진로상담</Link>
-            </div>
-            <div>
-                <Link to="/jobinfo">직업 정보</Link>
-            </div>
-            <div>
-                <Link to="/register">회원가입</Link>
-            </div>
-            <div>
-                <Link to="/login">로그인</Link>
-            </div>
+            <Navbar>
+                <Nav>
+                    <Link to="/" className="navbar-link">홈</Link>
+                </Nav>
+                <Nav>
+                    <Link to="/test-type" className="navbar-link">진로 심리 검사</Link>
+                </Nav>
+                <Nav>
+                    <Link to="/consultation" className="navbar-link">진로상담</Link>
+                </Nav>
+                <Nav>
+                    <Link to="/jobinfo" className="navbar-link">직업 정보</Link>
+                </Nav>
+                <Nav>
+                    <Link to="/register" className="navbar-link">회원가입</Link>
+                </Nav>
+                <Nav>
+                    <Link to="/login" className="navbar-link">로그인</Link>
+                </Nav>
+            </Navbar>
+            <hr />
         </>
     );
 };
