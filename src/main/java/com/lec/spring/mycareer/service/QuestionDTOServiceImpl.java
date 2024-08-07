@@ -3,13 +3,8 @@ package com.lec.spring.mycareer.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lec.spring.mycareer.domain.QuestionDTO;
-import com.lec.spring.mycareer.domain.Test;
 import com.lec.spring.mycareer.repository.QuestionDTORepository;
 import com.lec.spring.mycareer.repository.TestRepository;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -27,6 +22,11 @@ public class QuestionDTOServiceImpl implements QuestionDTOService {
     private String baseUrl = "http://www.career.go.kr/inspct/openapi/test/questions";
 
     private QuestionDTORepository questionDTORepository;
+
+    private QuestionDTOServiceImpl(QuestionDTORepository questionDTORepository) {
+        this.questionDTORepository = questionDTORepository;
+    }
+
     private TestRepository testRepository;
 
     @Override
@@ -35,9 +35,8 @@ public class QuestionDTOServiceImpl implements QuestionDTOService {
         String url =
                 baseUrl +
                         "?apikey=" + apiKey +
-                        "&q=" + "30";
+                        "&q=" + "27";
 
-        System.out.println("요청 URL : " + url);
 
         String result = "";
 
@@ -55,34 +54,53 @@ public class QuestionDTOServiceImpl implements QuestionDTOService {
 
             result = br.readLine();
 
-            JSONParser jsonParser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
+            JsonNode jsonNode = new ObjectMapper().readTree(result);
 
-            JSONObject parseResponse = (JSONObject) jsonObject.get("response");
+            JsonNode questions = jsonNode.get("RESULT");
 
-            JSONObject parseBody = (JSONObject) parseResponse.get("body");
+//            System.out.println(questions.toString());
 
-            JSONObject parseItems = (JSONObject) parseBody.get("items");
-
-            JSONArray array = (JSONArray) parseItems.get("item");
-
-            for (int i = 0; i < array.size(); i++) {
-                JSONObject item = (JSONObject) array.get(i);
-                QuestionDTO questionDTO = new QuestionDTO(
-
-                );
+            for (JsonNode question : questions) {
+                QuestionDTO q = QuestionDTO.builder()
+                        .qitemNo(question.get("qitemNo").asInt())
+                        .question(question.get("question").asText())
+                        .answer01(question.get("answer01").asText())
+                        .answer02(question.get("answer02").asText())
+                        .answer03(question.get("answer03").asText())
+                        .answer04(question.get("answer04").asText())
+                        .answer05(question.get("answer05").asText())
+                        .answer06(question.get("answer06").asText())
+                        .answer07(question.get("answer07").asText())
+                        .answer08(question.get("answer08").asText())
+                        .answer09(question.get("answer09").asText())
+                        .answer10(question.get("answer10").asText())
+                        .answerScore01(question.get("answerScore01").asText())
+                        .answerScore02(question.get("answerScore02").asText())
+                        .answerScore03(question.get("answerScore03").asText())
+                        .answerScore04(question.get("answerScore04").asText())
+                        .answerScore05(question.get("answerScore05").asText())
+                        .answerScore06(question.get("answerScore06").asText())
+                        .answerScore07(question.get("answerScore07").asText())
+                        .answerScore08(question.get("answerScore08").asText())
+                        .answerScore09(question.get("answerScore09").asText())
+                        .answerScore10(question.get("answerScore10").asText())
+                        .tip1Score(question.get("tip1Score").asInt())
+                        .tip2Score(question.get("tip2Score").asInt())
+                        .tip1Desc(question.get("tip1Desc").asText())
+                        .tip2Desc(question.get("tip2Desc").asText())
+                        .tip3Desc(question.get("tip3Desc").asText())
+                        .build();
+                q.setQ(27);
+                System.out.println("q = " + q);
+                questionDTORepository.save(q);
             }
-
-
-
+            System.out.println("요청 URL : " + url);
+            System.out.println("저장 완료.");
 
 
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
         }
-
         return 1;
     }
 
