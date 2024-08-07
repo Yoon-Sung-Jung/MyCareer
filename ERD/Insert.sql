@@ -3,6 +3,10 @@ show tables;
 select *
 from Test;
 
+select *
+from Question;
+
+
 show columns from Test;
 show columns from Question;
 
@@ -32,4 +36,4 @@ VALUES ('직업흥미검사(K) – 중학생', 30),
 
 select *
 from Question
-where q=32;
+where q=31;

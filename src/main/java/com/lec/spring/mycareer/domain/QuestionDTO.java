@@ -10,11 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@IdClass(QuestionId.class)
 @Entity(name = "Question")
 public class QuestionDTO {
     @Id
     private Integer qitemNo;
 
+    @Id
     @Column
     private Integer q;
 
