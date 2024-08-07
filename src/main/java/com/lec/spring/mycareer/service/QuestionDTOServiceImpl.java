@@ -106,7 +106,12 @@ public class QuestionDTOServiceImpl implements QuestionDTOService {
 
 
     @Override
-    public List<QuestionDTO> getAllQuestion(Integer q) {
-        return List.of();
+    public List<QuestionDTO> getQuestionForQ(Integer q) {
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        for (QuestionDTO questionDTO : questionDTORepository.findByQ(q)) {
+            questionDTOList.add(questionDTO);
+        }
+
+        return questionDTOList;
     }
 }

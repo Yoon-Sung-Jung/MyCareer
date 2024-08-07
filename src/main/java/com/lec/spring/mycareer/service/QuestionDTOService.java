@@ -7,5 +7,5 @@ import java.util.List;
 public interface QuestionDTOService {
 
     int save();
-    List<QuestionDTO> getAllQuestion(Integer q);
+    List<QuestionDTO> getQuestionForQ(Integer q);
 }
