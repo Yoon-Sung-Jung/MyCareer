@@ -16,6 +16,8 @@ const Test = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [curPage, setCurPage] = useState(1);
+    const itemsPerPage = 10;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -50,16 +52,33 @@ const Test = () => {
         return <p>{error}</p>; // 오류 메시지 표시
     }
 
+    const indexOfLastItem = curPage * itemsPerPage; // 현재 페이지의 첫 번째 항목 인덱스
+    const indexofFirstItem = indexOfLastItem - itemsPerPage;    // 현재 페이지의 첫 번째 항목 인덱스
+    const curItems = data.slice(indexofFirstItem, indexOfLastItem);
+
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+
+
+    const testResult = (e) => {
+        e.preventDefault();
+
+        axios({
+            method: "post",
+            
+        })
+
+    }
+
     return (
         <>
-        <Form onSubmit = "">
+        <Form onSubmit = {testResult}>
             
-            {data.map((item) => (
+            {curItems.map((item) => (
                 <div key={item.qitemNo}>
                     <h4>{item.qitemNo}.</h4>
                     <h4>{item.question}</h4>
                     <ul>
-                        {item.answer01 && (
+                        {item.answer01 !== "null" && (
                             <li>
                                 <label>
                                     <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer01} />
@@ -67,7 +86,7 @@ const Test = () => {
                                 </label>
                             </li>
                         )}
-                        {item.answer02 && (
+                        {item.answer02 !== "null" && (
                             <li>
                                 <label>
                                     <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer02} />
@@ -75,7 +94,7 @@ const Test = () => {
                                 </label>
                             </li>
                         )}
-                        {item.answer03 && (
+                        {item.answer03 !== "null" && (
                             <li>
                                 <label>
                                     <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer03} />
@@ -83,7 +102,7 @@ const Test = () => {
                                 </label>
                             </li>
                         )}
-                        {item.answer04 && (
+                        {item.answer04 !== "null" && (
                             <li>
                                 <label>
                                     <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer04} />
@@ -99,7 +118,7 @@ const Test = () => {
                                 </label>
                             </li>
                         )}
-                        {item.answer06 != "null" && (
+                        {item.answer06 !== "null" && (
                             <li>
                                 <label>
                                     <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer06} />
@@ -107,7 +126,7 @@ const Test = () => {
                                 </label>
                             </li>
                         )}
-                        {item.answer07 != "null" && (
+                        {item.answer07 !== "null" && (
                             <li>
                                 <label>
                                     <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer07} />
@@ -118,7 +137,21 @@ const Test = () => {
                     </ul>
                 </div>
             ))}
-            <Button type="submit">제출</Button>
+            
+            {/* Pagination 설정 */}
+            <div>
+                { curPage === 1 ||
+                    (<Button onClick = {() => setCurPage(prev => Math.max(prev - 1, 1))}>이전</Button>)
+                }
+                {curPage} / {totalPages}
+                {   curPage === totalPages ||
+                <Button onClick = {() => setCurPage(prev => Math.min(prev + 1, totalPages))} disabled = {curPage === totalPages}>다음</Button>
+                
+            }
+            </div>
+            {   curPage === totalPages &&
+                <Button type="submit">제출</Button>
+            }
             </Form>
         </>
     );
