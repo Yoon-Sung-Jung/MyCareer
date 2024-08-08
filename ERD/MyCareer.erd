@@ -4,7 +4,7 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": 0,
+    "scrollTop": -23,
     "scrollLeft": 0,
     "zoomLevel": 1,
     "show": 495,
@@ -926,16 +926,16 @@
         "comment": "심리검사번호",
         "dataType": "INT",
         "default": "",
-        "options": 8,
+        "options": 10,
         "ui": {
-          "keys": 2,
+          "keys": 3,
           "widthName": 60,
           "widthComment": 64,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1722501346531,
+          "updateAt": 1723019015738,
           "createAt": 1722501215779
         }
       },
@@ -1375,7 +1375,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1722502137499,
+          "updateAt": 1723019018987,
           "createAt": 1722501963361
         }
       },
@@ -1527,7 +1527,7 @@
       },
       "BNAGNUeG5Tr4hUJQi8m2c": {
         "id": "BNAGNUeG5Tr4hUJQi8m2c",
-        "identification": false,
+        "identification": true,
         "relationshipType": 16,
         "startRelationshipType": 2,
         "start": {
@@ -1549,36 +1549,8 @@
           "direction": 4
         },
         "meta": {
-          "updateAt": 1722501215780,
+          "updateAt": 1723019015750,
           "createAt": 1722501215780
-        }
-      },
-      "hNsuxXhoO8yEx6_e4rtt4": {
-        "id": "hNsuxXhoO8yEx6_e4rtt4",
-        "identification": false,
-        "relationshipType": 16,
-        "startRelationshipType": 2,
-        "start": {
-          "tableId": "74_mKXoyhajb6GOxHKEEj",
-          "columnIds": [
-            "BYNUh07otxSUSgklzKKeL"
-          ],
-          "x": 734.75,
-          "y": 185,
-          "direction": 8
-        },
-        "end": {
-          "tableId": "wsU9vDeT6JdP43I8mgHZY",
-          "columnIds": [
-            "VBEWrSValqerCpCm3-OUf"
-          ],
-          "x": 456,
-          "y": 938,
-          "direction": 2
-        },
-        "meta": {
-          "updateAt": 1722523109888,
-          "createAt": 1722523109888
         }
       },
       "azjXEatzFkSWdwKOgrTyM": {
@@ -2015,7 +1987,8 @@
         "name": 1722501340410,
         "dataType": 1722501215763,
         "default": 1722501215763,
-        "comment": 1722501346531
+        "comment": 1722501346531,
+        "options(primaryKey)": 1723019015736
       }
     ],
     "BNAGNUeG5Tr4hUJQi8m2c": [
@@ -2274,7 +2247,7 @@
         "name": 1722502029837,
         "dataType": 1722502032503,
         "options(notNull)": 1722502037814,
-        "options(primaryKey)": 1722502137473
+        "options(primaryKey)": 1723019018985
       }
     ],
     "1n1Xp_GXfBtZx4Lw61WrO": [
@@ -2298,12 +2271,6 @@
         "default": 1722523109882,
         "comment": 1722523109882
       }
-    ],
-    "hNsuxXhoO8yEx6_e4rtt4": [
-      "relationshipEntities",
-      1722523109882,
-      1722523126419,
-      {}
     ],
     "wHh9nN4WTxJ_CERJ4Z1QP": [
       "tableColumnEntities",

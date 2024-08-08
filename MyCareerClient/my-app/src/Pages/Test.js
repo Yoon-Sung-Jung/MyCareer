@@ -10,6 +10,8 @@ const Test = () => {
     const api_key = '9f936b2680d7a09e5fe0d0bd0ed402f4';
     const q = location.state.q;
 
+    console.log(q);
+
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -17,30 +19,18 @@ const Test = () => {
     useEffect(() => {
         axios({
             method: "get",
-            url: `${url}?apikey=${api_key}&q=${q}`
+            url: 'http://localhost:8080/getTest/' + q,
         })
         .then(response => {
             const {data, status} = response;
-            if(data.SUCC_YN === "Y") {
-                setData(data.RESULT);
+            if(status ==  200) {
+                console.log('불러오기', data);
+                setData(data);
             } else {
-                setError(data.ERROR_REASON);
+                alert('불러오기 실패');
             }
-        }
-
-        )
-
-        
-
+        })
     }, []);
-
-    if (loading) {
-        return <div>로딩 중...</div>;
-    }
-
-    if (error) {
-        return <div>오류 발생: {error}</div>;
-    }
 
 
     return (
