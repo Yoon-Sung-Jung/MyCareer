@@ -51,15 +51,47 @@ const Test = () => {
         return <p>{error}</p>; // 오류 메시지 표시
     }
 
+    // Pagination 관련
     const indexOfLastItem = curPage * itemsPerPage; // 현재 페이지의 첫 번째 항목 인덱스
     const indexofFirstItem = indexOfLastItem - itemsPerPage;    // 현재 페이지의 첫 번째 항목 인덱스
     const curItems = data.slice(indexofFirstItem, indexOfLastItem);
-
     const totalPages = Math.ceil(data.length / itemsPerPage);
 
+    const answers = "";
+
+
+    const changeValue = (e) => {
+        
+        // q가 30, 31일 경우, answer 값은 A1=3 A2=2 ...
+        if(q == 30 || q == 31) {
+            answers += `A{e.target.name}={e.target.value} `
+        }
+
+        // q가 8, 9, 10 일 경우, answer 값은 2,2,2,3,...
+        if (q == 8 || q == 9 || q == 10) {
+
+        }
+
+        // q가 19, 20, 21, 22, 23, 24, 25, 26, 27 일 경우, answer 값은 1=5 2=4 3=4 ...
+        if (q == 19 || q == 20 || q == 21 || q == 22 || 
+            q == 23 || q == 24 || q == 25 || q == 26 || 
+            q == 27) {
+
+            }
+
+        // q가 6 일 경우, answer 값은 B1=1 B2=4
+        if( q == 6) {
+
+        }
+        answers = answers.trimEnd();
+        
+    }
 
     const testResult = (e) => {
-        e.preventDefault();
+        e.preventDefault(); 
+        console.log(answers);
+        
+
 
         axios({
             method: "post",
@@ -96,7 +128,7 @@ return (
                         {item.answer01 !== "null" && (
                             <li>
                                 <label>
-                                    <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer01} />
+                                    <input type="radio" name={`${item.qitemNo}`} value={item.answer01} />
                                     {item.answer01}
                                 </label>
                             </li>
@@ -104,7 +136,7 @@ return (
                         {item.answer02 !== "null" && (
                             <li>
                                 <label>
-                                    <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer02} />
+                                    <input type="radio" name={`${item.qitemNo}`} value={item.answer02} />
                                     {item.answer02}
                                 </label>
                             </li>
@@ -112,7 +144,7 @@ return (
                         {item.answer03 !== "null" && (
                             <li>
                                 <label>
-                                    <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer03} />
+                                    <input type="radio" name={`${item.qitemNo}`} value={item.answer03} />
                                     {item.answer03}
                                 </label>
                             </li>
@@ -120,7 +152,7 @@ return (
                         {item.answer04 !== "null" && (
                             <li>
                                 <label>
-                                    <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer04} />
+                                    <input type="radio" name={`${item.qitemNo}`} value={item.answer04} />
                                     {item.answer04}
                                 </label>
                             </li>
@@ -128,7 +160,7 @@ return (
                         {item.answer05 !== "null" && (
                             <li>
                                 <label>
-                                    <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer05} />
+                                    <input type="radio" name={`${item.qitemNo}`} value={item.answer05} />
                                     {item.answer05}
                                 </label>
                             </li>
@@ -136,7 +168,7 @@ return (
                         {item.answer06 !== "null" && (
                             <li>
                                 <label>
-                                    <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer06} />
+                                    <input type="radio" name={`${item.qitemNo}`} value={item.answer06} />
                                     {item.answer06}
                                 </label>
                             </li>
@@ -144,7 +176,7 @@ return (
                         {item.answer07 !== "null" && (
                             <li>
                                 <label>
-                                    <input type="radio" name={`answer-${item.qitemNo}`} value={item.answer07} />
+                                    <input type="radio" name={`${item.qitemNo}`} value={item.answer07} />
                                     {item.answer07}
                                 </label>
                             </li>
