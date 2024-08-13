@@ -8,17 +8,17 @@ const Test = () => {
     const location = useLocation();
     const api_key = '9f936b2680d7a09e5fe0d0bd0ed402f4';
     const q = location.state?.q; // 안전하게 q값 가져오기
+    const qId = parseInt(q);
 
-    console.log('q값 받아옴', q);
 
     const [data, setData] = useState([]); // 초기 상태를 빈 배열로 설정
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const [answers, setAnswers] = useState({});
-
     const [curPage, setCurPage] = useState(1);
     const itemsPerPage = 10;
+
+    const [answers, setAnswers] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,79 +53,66 @@ const Test = () => {
         return <p>{error}</p>; // 오류 메시지 표시
     }
 
-    // Pagination 관련
     const indexOfLastItem = curPage * itemsPerPage; // 현재 페이지의 첫 번째 항목 인덱스
     const indexofFirstItem = indexOfLastItem - itemsPerPage;    // 현재 페이지의 첫 번째 항목 인덱스
     const curItems = data.slice(indexofFirstItem, indexOfLastItem);
+
     const totalPages = Math.ceil(data.length / itemsPerPage);
 
-
-
-    const changeValue = (e) => {
-        const {name, value} = e.target;
+    const chageValue = (e) => {
+        const { name, value } = e.target;
         setAnswers((prevAnswers) => ({
             ...prevAnswers,
             [name]: value
         }));
     }
 
-
-
-
-    const prevPage = () => {
-        setCurPage(prev => Math.max(prev - 1, 1));
-    }
-
-    const nextPage = () => {
-        setCurPage(prev => Math.min(prev + 1, totalPages))
-    }
-
-
     const testResult = (e) => {
         e.preventDefault();
-        console.log(answers);
 
         let formattedAnswers = "";
-        for (const [key, value] of Object(answers)) {
+
+        for (const [key, value] of Object.entries(answers)) {
 
             // q가 30, 31일 경우, answer 값은 A1=3 A2=2 ...
-            if (q == 30 || q == 31) {
-
+            if (qId === 30 || qId === 31) {
+                formattedAnswers += `A${key}=${value} `;
             }
 
             // q가 8, 9, 10 일 경우, answer 값은 2,2,2,3,...
-            if (q == 8 || q == 9 || q == 10) {
-
+            if (qId >= 8 && qId <= 10) {
+                formattedAnswers += `${value},`;
             }
 
             // q가 19, 20, 21, 22, 23, 24, 25, 26, 27 일 경우, answer 값은 1=5 2=4 3=4 ...
-            if (q == 19 || q == 20 || q == 21 || q == 22 ||
-                q == 23 || q == 24 || q == 25 || q == 26 ||
-                q == 27) {
-
+            if (qId >= 19 && qId <= 27) {
+                formattedAnswers += `${key}=${value} `;
             }
 
             // q가 6 일 경우, answer 값은 B1=1 B2=4
-            if (q == 6) {
-
+            if (qId === 6) {
+                formattedAnswers += `B${key}=${value} `;
             }
-            answers = answers.trimEnd();
+
         }
 
+        formattedAnswers = formattedAnswers.trimEnd(); 
+
+        console.log("답안:" + formattedAnswers);
         axios({
             method: "post",
             url: "http://www.career.go.kr/inspct/openapi/test/report",
             data: {
                 "apikey": api_key,
                 "qestrnSeq": q,
-                "trgetSe": "100206",
+                "trgetSe": "100208",
                 "name": "홍길동",
                 "gender": "100323",
-                "school": "율도중학교",
+                "school": "",
                 "grade": "2",
                 "email": "",
                 "startDtm": 1550466291034,
-                "answers": answers
+                "answers": formattedAnswers 
             }
         })
             .then((response) => {
@@ -133,114 +120,122 @@ const Test = () => {
                 window.location.href = url;
             })
 
+    }
 
+    return (
+        <>
+            <Form onSubmit={testResult}>
 
-        return (
-            <>
-            <h4
-                <Form onSubmit={testResult}>
-
-                    {curItems.map((item) => (
-                        <div key={item.qitemNo}>
-                            <h4>{item.qitemNo}.</h4>
-                            <h4>{item.question}</h4>
-                            <ul>
-                                {item.answer01 !== "null" && (
-                                    <li>
-                                        <label>
-                                            <input type="radio"
-                                                name={`${item.qitemNo}`}
-                                                value={item.answer01}
-                                                />
-                                            {item.answer01}
-                                        </label>
-                                    </li>
-                                )}
-                                {item.answer02 !== "null" && (
-                                    <li>
-                                        <label>
-                                            <input type="radio"
-                                                name={`${item.qitemNo}`}
-                                                value={item.answer02}
-                                                 />
-                                            {item.answer02}
-                                        </label>
-                                    </li>
-                                )}
-                                {item.answer03 !== "null" && (
-                                    <li>
-                                        <label>
-                                            <input type="radio"
-                                                name={`${item.qitemNo}`}
-                                                value={item.answer03}
-                                               />
-                                            {item.answer03}
-                                        </label>
-                                    </li>
-                                )}
-                                {item.answer04 !== "null" && (
-                                    <li>
-                                        <label>
-                                            <input type="radio"
-                                                name={`${item.qitemNo}`}
-                                                value={item.answer04}
-                                                />
-                                            {item.answer04}
-                                        </label>
-                                    </li>
-                                )}
-                                {item.answer05 !== "null" && (
-                                    <li>
-                                        <label>
-                                            <input type="radio"
-                                                name={`${item.qitemNo}`}
-                                                value={item.answer05}
-                                                 />
-                                            {item.answer05}
-                                        </label>
-                                    </li>
-                                )}
-                                {item.answer06 !== "null" && (
-                                    <li>
-                                        <label>
-                                            <input type="radio"
-                                                name={`${item.qitemNo}`}
-                                                value={item.answer06}
-                                                />
-                                            {item.answer06}
-                                        </label>
-                                    </li>
-                                )}
-                                {item.answer07 !== "null" && (
-                                    <li>
-                                        <label>
-                                            <input type="radio"
-                                                name={`${item.qitemNo}`}
-                                                value={item.answer07} />
-                                            {item.answer07}
-                                        </label>
-                                    </li>
-                                )}
-                            </ul>
-                        </div>
-                    ))}
-
-                    {/* Pagination 설정 */}
-                    <div>
-                        {curPage === 1 ||
-                            (<Button onClick={prevPage} disabled={curPage === 1}>이전</Button>)
-                        }
-                        {curPage} / {totalPages}
-                        {curPage === totalPages ||
-                            <Button onClick={nextPage} disabled={curPage === totalPages}>다음</Button>
-                        }
+                {curItems.map((item) => (
+                    <div key={item.qitemNo}>
+                        <h4>{item.qitemNo}</h4>
+                        <h4>{item.question}</h4>
+                        <ul>
+                            {item.answer01 !== "null" && (
+                                <li>
+                                    <label>
+                                        <input type="radio"
+                                            name={`${item.qitemNo}`}
+                                            value={item.answerScore01}
+                                            checked={answers[item.qitemNo] === item.answerScore01}
+                                            onChange={chageValue} />
+                                        {item.answer01}
+                                    </label>
+                                </li>
+                            )}
+                            {item.answer02 !== "null" && (
+                                <li>
+                                    <label>
+                                        <input type="radio"
+                                            name={`${item.qitemNo}`}
+                                            value={item.answerScore02}
+                                            checked={answers[item.qitemNo] === item.answerScore02}
+                                            onChange={chageValue} />
+                                        {item.answer02}
+                                    </label>
+                                </li>
+                            )}
+                            {item.answer03 !== "null" && (
+                                <li>
+                                    <label>
+                                        <input type="radio"
+                                            name={`${item.qitemNo}`}
+                                            value={item.answerScore03}
+                                            checked={answers[item.qitemNo] === item.answerScore03}
+                                            onChange={chageValue} />
+                                        {item.answer03}
+                                    </label>
+                                </li>
+                            )}
+                            {item.answer04 !== "null" && (
+                                <li>
+                                    <label>
+                                        <input type="radio"
+                                            name={`${item.qitemNo}`}
+                                            value={item.answerScore04}
+                                            checked={answers[item.qitemNo] === item.answerScore04}
+                                            onChange={chageValue} />
+                                        {item.answer04}
+                                    </label>
+                                </li>
+                            )}
+                            {item.answer05 !== "null" && (
+                                <li>
+                                    <label>
+                                        <input type="radio"
+                                            name={`${item.qitemNo}`}
+                                            value={item.answerScore05}
+                                            checked={answers[item.qitemNo] === item.answerScore05}
+                                            onChange={chageValue} />
+                                        {item.answer05}
+                                    </label>
+                                </li>
+                            )}
+                            {item.answer06 !== "null" && (
+                                <li>
+                                    <label>
+                                        <input type="radio"
+                                            name={`${item.qitemNo}`}
+                                            value={item.answerScore06}
+                                            checked={answers[item.qitemNo] === item.answerScore06}
+                                            onChange={chageValue} />
+                                        {item.answer06}
+                                    </label>
+                                </li>
+                            )}
+                            {item.answer07 !== "null" && (
+                                <li>
+                                    <label>
+                                        <input type="radio"
+                                            name={`${item.qitemNo}`}
+                                            value={item.answerScore07}
+                                            checked={answers[item.qitemNo] === item.answerScore07}
+                                            onChange={chageValue} />
+                                        {item.answer07}
+                                    </label>
+                                </li>
+                            )}
+                        </ul>
                     </div>
-                    {curPage === totalPages &&
-                        <Button type="submit">제출</Button>
+                ))}
+
+                {/* Pagination 설정 */}
+                <div>
+                    {curPage === 1 ||   // 1 페이지일 경우, 버튼 숨김
+                        (<Button onClick={() => setCurPage(prev => Math.max(prev - 1, 1))}>이전</Button>)
                     }
-                </Form>
-            </>
-        );
-    };
-}
+                    {curPage} / {totalPages}
+                    {curPage === totalPages ||  // 마지막 페이지일 경우, 버튼 숨김
+                        <Button onClick={() => setCurPage(prev => Math.min(prev + 1, totalPages))} disabled={curPage === totalPages}>다음</Button>
+
+                    }
+                </div>
+                {curPage === totalPages &&  // 마지막 페이지에, 버튼 노출
+                    <Button type="submit">제출</Button>
+                }
+            </Form>
+        </>
+    );
+};
+
 export default Test;

@@ -36,4 +36,4 @@ VALUES ('직업흥미검사(K) – 중학생', 30),
 
 select *
 from Question
-where q=6;
+where q=9;
