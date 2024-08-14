@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TestType from './TestType';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -7,9 +7,15 @@ import { Button, Form } from 'react-bootstrap';
 const Test = () => {
     const location = useLocation();
     const api_key = '9f936b2680d7a09e5fe0d0bd0ed402f4';
-    const q = location.state?.q; // 안전하게 q값 가져오기
+    const q = location.state?.q; 
+    const name = location.state?.name;
+    const gender = location.state?.gender;
+    const trgetSe = location.state?.trgetSe;
+    const email = location.state?.email;
     const qId = parseInt(q);
 
+
+    console.log(`${email}, ${name}, ${gender}, ${trgetSe}, ${q}`);
 
     const [data, setData] = useState([]); // 초기 상태를 빈 배열로 설정
     const [loading, setLoading] = useState(true);
@@ -59,6 +65,7 @@ const Test = () => {
 
     const totalPages = Math.ceil(data.length / itemsPerPage);
 
+    // 선택한 답 처리
     const chageValue = (e) => {
         const { name, value } = e.target;
         setAnswers((prevAnswers) => ({
@@ -66,6 +73,7 @@ const Test = () => {
             [name]: value
         }));
     }
+
 
     const testResult = (e) => {
         e.preventDefault();
@@ -105,12 +113,12 @@ const Test = () => {
             data: {
                 "apikey": api_key,
                 "qestrnSeq": q,
-                "trgetSe": "100208",
-                "name": "홍길동",
-                "gender": "100323",
+                "trgetSe": trgetSe,
+                "name": name,
+                "gender": gender,
                 "school": "",
-                "grade": "2",
-                "email": "",
+                "grade": "",
+                "email": email,
                 "startDtm": 1550466291034,
                 "answers": formattedAnswers 
             }
@@ -122,6 +130,13 @@ const Test = () => {
 
     }
 
+    const nextPage = () => {
+        setCurPage(prev => Math.min(prev + 1, totalPages))
+    }
+
+    const prevPage = () => {
+        setCurPage(prev => Math.max(prev - 1, 1)) 
+    }
     return (
         <>
             <Form onSubmit={testResult}>
@@ -222,11 +237,11 @@ const Test = () => {
                 {/* Pagination 설정 */}
                 <div>
                     {curPage === 1 ||   // 1 페이지일 경우, 버튼 숨김
-                        (<Button onClick={() => setCurPage(prev => Math.max(prev - 1, 1))}>이전</Button>)
+                        (<Button onClick={prevPage}>이전</Button>)
                     }
                     {curPage} / {totalPages}
                     {curPage === totalPages ||  // 마지막 페이지일 경우, 버튼 숨김
-                        <Button onClick={() => setCurPage(prev => Math.min(prev + 1, totalPages))} disabled={curPage === totalPages}>다음</Button>
+                        <Button onClick={nextPage}>다음</Button>
 
                     }
                 </div>

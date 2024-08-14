@@ -12,6 +12,7 @@ import TestType from './Pages/TestType';
 import Test from './Pages/Test';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TestProfile from './Pages/TestProfile';
 
 const MainApp = () => {
     return (
@@ -26,6 +27,7 @@ const MainApp = () => {
                     <Route path="/mypage" element={<MyPage/>} />
                     <Route path="/test-type" element={<TestType/>} />
                     <Route path="/test" element={<Test/>} />
+                    <Route path="/testprofile" element={<TestProfile/>} />
                     <Route path="/login" element={<Login/>} />
                 </Routes>
                 <Footer />
