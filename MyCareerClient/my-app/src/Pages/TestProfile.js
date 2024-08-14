@@ -15,6 +15,8 @@ const TestProfile = () => {
     const [trgetSe, setTrgetSe] = useState('');
     const [eId, setEmailId] = useState('');
     const [eDomain, setEmailDomain] = useState('');
+    const [grade, setGrade] = useState('');
+
 
     const handleGender = (e) => {
         setGender(e.target.value);
@@ -27,6 +29,14 @@ const TestProfile = () => {
     const handleTrget = (e) => {
         setTrgetSe(e.target.value);
     };
+
+    const handleGrade = (e) => {
+        if(grade === e.target.value)
+            setGrade(null);
+        else 
+            setGrade(e.target.value);
+    };
+
     const setProfile = (e) => {
         e.preventDefault();
         const username = e.target.username.value;
@@ -45,7 +55,8 @@ const TestProfile = () => {
                 name: username,
                 gender: gender,
                 trgetSe: trgetSe,
-                email: email
+                email: email,
+                grade: grade
             }
         });
     };
@@ -144,9 +155,33 @@ const TestProfile = () => {
                         }
                     </select>
                 </label>
+                {
+                    (trgetSe == 100206 || trgetSe == 100207 || trgetSe == 100208)
+                    && (
+                        <>
+                            <label>
+                                <input type="checkbox" value="1" checked={grade == "1"} onChange={handleGrade}/>1학년
+                            </label>
+                            <label>
+                                <input type="checkbox" value="2" checked={grade == "2"} onChange={handleGrade}/>2학년
+
+                            </label>
+                            <label>
+                                <input type="checkbox" value="3" checked={grade == "3"} onChange={handleGrade}/>3학년
+                            </label>
+                            {trgetSe == 100208 && (
+                                <>
+                                    <label>
+                                        <input type="checkbox" name="grade" value="4" checked={grade == "4"} onChange={handleGrade}/>4학년
+                                    </label>
+                                </>
+                            )}
+                        </>
+                    )
+                }
                 <br />
                 <Button type="submit">검사 시작</Button>
-            </Form>
+            </Form >
         </>
     );
 };
