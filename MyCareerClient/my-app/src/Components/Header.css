@@ -1,0 +1,39 @@
+.navbar {
+    margin-bottom: 20px;
+}
+
+.nav-home {
+    margin-left: 3%;
+}
+
+.nav-item {
+    margin-left: 16%;
+}
+
+.navbar-link {
+    color: black; /* 원하는 색상 */
+    text-decoration: none;
+}
+
+.navbar-link:hover {
+    background-color: rgb(240, 240, 240);
+    color: rgb(111, 110, 110);
+}
+
+
+.nav-auth {
+    position: relative;
+    
+}
+
+.toggleLink {
+
+    margin-top: 20px; /* 위쪽 간격 조정 */
+    padding: 10px;
+    background-color: #f8f9fa; /* 배경색 추가 */
+    border: 1px solid #dee2e6; /* 테두리 추가 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    position: absolute; /* 위치를 절대값으로 설정 */
+    z-index: 1000; /* z-index를 높여서 다른 요소 위에 표시 */
+    left: 0;
+}

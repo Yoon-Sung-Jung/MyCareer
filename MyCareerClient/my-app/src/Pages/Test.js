@@ -12,10 +12,11 @@ const Test = () => {
     const gender = location.state?.gender;
     const trgetSe = location.state?.trgetSe;
     const email = location.state?.email;
+    const grade = location.state?.grade;
     const qId = parseInt(q);
 
 
-    console.log(`${email}, ${name}, ${gender}, ${trgetSe}, ${q}`);
+    console.log(`${email}, ${name}, ${gender}, ${trgetSe}, ${q}, ${grade}`);
 
     const [data, setData] = useState([]); // 초기 상태를 빈 배열로 설정
     const [loading, setLoading] = useState(true);
@@ -117,7 +118,7 @@ const Test = () => {
                 "name": name,
                 "gender": gender,
                 "school": "",
-                "grade": "",
+                "grade": grade,
                 "email": email,
                 "startDtm": 1550466291034,
                 "answers": formattedAnswers 
