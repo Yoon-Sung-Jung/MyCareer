@@ -28,3 +28,6 @@ spring:
 
 jwt:
   secret: KPcjw1An1gHbbB@XHXVMwYCm55KE3&fqkZf9$Lrm0t!eMJZOmXDGDF%T4Uy-HXG
+
+cors:
+  allowed-origins: http://localhost:3000
