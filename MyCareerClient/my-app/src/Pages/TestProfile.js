@@ -140,7 +140,7 @@ const TestProfile = () => {
                             )
                         }
                         {
-                            (qId >= 6 && qId <= 10)
+                            (qId >= 6 && qId <= 10 || qId == 19)
                             &&
                             (
                                 <>
