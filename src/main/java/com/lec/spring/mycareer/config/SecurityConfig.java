@@ -62,7 +62,7 @@ public class SecurityConfig {
         http.httpBasic((auth) -> auth.disable());
 
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/member").hasRole("MEMBER")
+//                .requestMatchers("/member").hasRole("MEMBER")
                 .anyRequest().permitAll()
         );
 
@@ -74,22 +74,22 @@ public class SecurityConfig {
         http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil),
                 UsernamePasswordAuthenticationFilter.class);
 
-        http.cors(corsConfigurer
-                -> corsConfigurer.configurationSource(new CorsConfigurationSource() {
-            @Override
-            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                CorsConfiguration config = new CorsConfiguration();
-
-                config.setAllowedOrigins(corsAllowedOrigins);
-                config.setAllowedMethods(List.of("*"));
-                config.setAllowCredentials(true);
-                config.setAllowedHeaders(Collections.singletonList("*"));
-                config.setMaxAge(3600L);
-
-                config.setAllowedHeaders(Collections.singletonList("*"));
-                return config;
-            }
-        }));
+//        http.cors(corsConfigurer
+//                -> corsConfigurer.configurationSource(new CorsConfigurationSource() {
+//            @Override
+//            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+//                CorsConfiguration config = new CorsConfiguration();
+//
+//                config.setAllowedOrigins(corsAllowedOrigins);
+//                config.setAllowedMethods(List.of("*"));
+//                config.setAllowCredentials(true);
+//                config.setAllowedHeaders(Collections.singletonList("*"));
+//                config.setMaxAge(3600L);
+//
+//                config.setAllowedHeaders(Collections.singletonList("*"));
+//                return config;
+//            }
+//        }));
         return http.build();
     }
 

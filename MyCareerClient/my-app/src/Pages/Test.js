@@ -15,9 +15,6 @@ const Test = () => {
     const grade = location.state?.grade;
     const qId = parseInt(q);
 
-
-    console.log(`${email}, ${name}, ${gender}, ${trgetSe}, ${q}, ${grade}`);
-
     const [data, setData] = useState([]); // 초기 상태를 빈 배열로 설정
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
