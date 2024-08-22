@@ -66,9 +66,9 @@ public class SecurityConfig {
                 .anyRequest().permitAll()
         );
 
+        http.sessionManagement((session) -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         // todo
-//        http.sessionManagement((session) -> session
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 //
 //        http.addFilterBefore(new JWTFilter(jwtUtil), LogoutFilter.class);
 //

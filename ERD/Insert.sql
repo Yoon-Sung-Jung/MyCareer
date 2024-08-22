@@ -8,6 +8,7 @@ from Question;
 
 
 show columns from Test;
+show columns from MYCAREER_USER;
 show columns from Question;
 
 ALTER TABLE Test
@@ -15,6 +16,7 @@ ALTER TABLE Test
 
 drop table Question;
 drop table Test;
+drop table MYCAREER_USER;
 
 insert into Test (test_type, q)
 VALUES ('직업흥미검사(K) – 중학생', 30),
@@ -37,3 +39,5 @@ VALUES ('직업흥미검사(K) – 중학생', 30),
 select *
 from Question
 where q=31;
+
+delete from MYCAREER_USER where id=1;
