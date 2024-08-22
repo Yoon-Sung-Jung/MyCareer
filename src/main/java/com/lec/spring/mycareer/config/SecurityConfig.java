@@ -66,13 +66,14 @@ public class SecurityConfig {
                 .anyRequest().permitAll()
         );
 
-        http.sessionManagement((session) -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-        http.addFilterBefore(new JWTFilter(jwtUtil), LogoutFilter.class);
-
-        http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil),
-                UsernamePasswordAuthenticationFilter.class);
+        // todo
+//        http.sessionManagement((session) -> session
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+//
+//        http.addFilterBefore(new JWTFilter(jwtUtil), LogoutFilter.class);
+//
+//        http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil),
+//                UsernamePasswordAuthenticationFilter.class);
 
         http.cors(corsConfigurer
                 -> corsConfigurer.configurationSource(new CorsConfigurationSource() {
