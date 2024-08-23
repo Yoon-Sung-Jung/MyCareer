@@ -9,28 +9,33 @@ const Register = () => {
     const navigate = useNavigate();
 
 
-    const [identity, setIdentity] = useState('');
-
+    
     const [user, setUser] = useState({
         username: '',
         name: '',
         password: '',
         emailID: '',
         emailDomain: '',
+        identity: '',
     });
+
+    const [rePassword, setRePassword] = useState('');
+    
+    const handleRePW = (e) => {
+        setRePassword(e.target.value);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUser({
             ...user,
             [name]: value
-        })
-    }
+        });
+    };
 
-    const handleId = (e) => {
-        setIdentity(e.target.value);
-    }
+    const checkPassword = () => {
 
+    };
 
     const registerUser = (e) => {
         e.preventDefault();
@@ -83,6 +88,15 @@ const Register = () => {
                     id="password"
                     value={user.password}
                     onChange={handleChange} />
+
+                <label>
+                    <input type="password"
+                        name="rePassword"
+                        id="rePassword"
+                        value={rePassword}
+                        onChange={handleRePW} />
+                    <Button onClick={checkPassword}>비밀번호 확인</Button>
+                </label>
 
                 <label>이메일</label>
                 <input type="text"
