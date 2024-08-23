@@ -42,4 +42,4 @@ select *
 from Question
 where q=31;
 
-delete from MYCAREER_USER where id=1;
+delete from MYCAREER_USER where id=2;
