@@ -6,6 +6,8 @@ from Test;
 select *
 from Question;
 
+select *
+from MYCAREER_USER;
 
 show columns from Test;
 show columns from MYCAREER_USER;
