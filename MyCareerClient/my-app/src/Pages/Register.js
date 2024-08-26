@@ -8,11 +8,13 @@ const Register = () => {
 
     const navigate = useNavigate();
 
+    const usernameRef = useRef(null);
     const passwordRef = useRef(null);
     const repasswordRef = useRef(null);
     const pwCheckRef = useRef(null);
 
     const [isClicked, setClicked] = useState(false);
+    const [usernameChecked, setChecked] = useState(false);
 
     const [user, setUser] = useState({
         username: '',
@@ -22,6 +24,33 @@ const Register = () => {
         emailDomain: '',
         identity: '',
     });
+
+    const checkUsername = (e) => {
+        e.preventDefault();
+        if (user.username.length === 0) {
+            alert('아이디를 입력해주세요');
+            usernameRef.current.focus();
+        } else {
+            axios({
+                method: "post",
+                url: "http://localhost:8080/checkUsername",
+                data: {
+                    "username": user.username
+                }
+            })
+                .then((response) => {
+                    const { data, status } = response;
+                    if (data == false) {
+                        alert('사용 가능한 닉네임입니다');
+                        setChecked(true);
+                    } else {
+                        alert('이미 사용중인 닉네임입니다');
+                        usernameRef.current.focus();
+
+                    }
+                })
+        }
+    }
 
     const [rePassword, setRePassword] = useState('');
 
@@ -53,7 +82,10 @@ const Register = () => {
 
     const registerUser = (e) => {
         e.preventDefault();
-        if (isClicked === false) {
+        if (usernameChecked === false) {
+            alert('아이디 중복 확인이 필요합니다');
+        }
+        else if (isClicked === false) {
             alert('비밀번호 확인 먼저 확인해주세요');
         } else {
             axios({
@@ -90,8 +122,9 @@ const Register = () => {
                     name="username"
                     id="username"
                     value={user.username}
-                    onChange={handleChange} />
-                <Button onClick="">중복 확인</Button>
+                    onChange={handleChange}
+                    ref={usernameRef} />
+                <Button onClick={checkUsername}>중복 확인</Button>
 
                 <label htmlFor='name'>이름</label>
                 <input type="text"

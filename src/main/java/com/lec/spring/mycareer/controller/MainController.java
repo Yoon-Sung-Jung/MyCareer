@@ -6,6 +6,7 @@ import com.lec.spring.mycareer.domain.UserJoinDTO;
 import com.lec.spring.mycareer.service.QuestionDTOService;
 import com.lec.spring.mycareer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,11 @@ public class MainController {
         user = userService.join(user);
         if(user == null) return "Join Failed";
         return "Join Ok: " + user;
+    }
+
+    @PostMapping("/checkUsername")
+    public Boolean checkUsername(@RequestBody UserJoinDTO joinDTO) {
+        return userService.findByUsername(joinDTO.getUsername()) != null;
     }
 
     @GetMapping("/getTest/{q}")
