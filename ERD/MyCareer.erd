@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -23,
-    "scrollLeft": 0,
+    "scrollTop": 0,
+    "scrollLeft": -675,
     "zoomLevel": 1,
     "show": 495,
     "database": 4,
@@ -326,7 +326,7 @@
         "comment": "별명",
         "dataType": "VARCHAR",
         "default": "",
-        "options": 8,
+        "options": 12,
         "ui": {
           "keys": 0,
           "widthName": 60,
@@ -335,7 +335,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1722403591455,
+          "updateAt": 1724200638052,
           "createAt": 1722307962642
         }
       },
@@ -1625,7 +1625,8 @@
         "name": 1722308010676,
         "dataType": 1722403557908,
         "options(notNull)": 1722308021692,
-        "comment": 1722403591454
+        "comment": 1722403591454,
+        "options(unique)": 1724200638050
       }
     ],
     "swEcd3o-TbeueAjpni_F-": [

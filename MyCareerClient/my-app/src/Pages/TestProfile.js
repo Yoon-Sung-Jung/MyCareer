@@ -44,10 +44,10 @@ const TestProfile = () => {
         const email = `${eId}@${eDomain}`;
 
 
-        console.log(username);
-        console.log(gender);
-        console.log(email);
-        console.log(trgetSe);
+        // console.log(username);
+        // console.log(gender);
+        // console.log(email);
+        // console.log(trgetSe);
 
         navigate('/test', {
             state: {
