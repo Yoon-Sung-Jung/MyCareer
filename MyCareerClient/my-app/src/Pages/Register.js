@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,8 +8,12 @@ const Register = () => {
 
     const navigate = useNavigate();
 
+    const passwordRef = useRef(null);
+    const repasswordRef = useRef(null);
+    const pwCheckRef = useRef(null);
 
-    
+    const [isClicked, setClicked] = useState(false);
+
     const [user, setUser] = useState({
         username: '',
         name: '',
@@ -20,7 +24,7 @@ const Register = () => {
     });
 
     const [rePassword, setRePassword] = useState('');
-    
+
     const handleRePW = (e) => {
         setRePassword(e.target.value);
     };
@@ -35,33 +39,47 @@ const Register = () => {
 
     const checkPassword = () => {
 
+        if (user.password.length == 0) {
+            alert('먼저 비밀번호를 입력해주세요');
+            passwordRef.current.focus();
+        } else if (user.password === rePassword) {
+            setClicked(true);
+            alert('비밀번호 확인이 완료 되었습니다');
+        } else {
+            alert('비밀번호가 맞지 않습니다');
+            repasswordRef.current.focus();
+        }
     };
 
     const registerUser = (e) => {
         e.preventDefault();
-
-        axios({
-            method: "post",
-            url: "http://localhost:8080/register",
-            data: {
-                "username": user.username,
-                "name": user.name,
-                "password": user.password,
-                "email": `${user.emailID}@${user.emailDomain}`,
-                "identity": user.identity
-            }
-        })
-            .then((response) => {
-                const { data, status } = response;
-                if (status === 200) {
-                    alert('가입 완료');
-                    navigate(`/login`)
-                } else {
-                    alert('가입에 실패하였습니다.')
-                    // todo
+        if (isClicked === false) {
+            alert('비밀번호 확인 먼저 확인해주세요');
+        } else {
+            axios({
+                method: "post",
+                url: "http://localhost:8080/register",
+                data: {
+                    "username": user.username,
+                    "name": user.name,
+                    "password": user.password,
+                    "email": `${user.emailID}@${user.emailDomain}`,
+                    "identity": user.identity
                 }
-
             })
+                .then((response) => {
+                    const { data, status } = response;
+                    if (status === 200) {
+                        alert('가입 완료');
+                        navigate(`/login`)
+                    } else {
+                        alert('가입에 실패하였습니다.')
+                        // todo
+                    }
+
+                })
+        }
+
 
     }
     return (
@@ -87,6 +105,7 @@ const Register = () => {
                     name="password"
                     id="password"
                     value={user.password}
+                    ref={passwordRef}
                     onChange={handleChange} />
 
                 <label>
@@ -94,9 +113,10 @@ const Register = () => {
                         name="rePassword"
                         id="rePassword"
                         value={rePassword}
+                        ref={repasswordRef}
                         onChange={handleRePW} />
-                    <Button onClick={checkPassword}>비밀번호 확인</Button>
                 </label>
+                <Button onClick={checkPassword} ref={pwCheckRef}>비밀번호 확인</Button>
 
                 <label>이메일</label>
                 <input type="text"
