@@ -24,4 +24,6 @@
     
 - 진로 정보(구현 예정)
 
+- Git을 사용한 버전 관리
+  
 사용 기술: Spring Security, Spring Boot3, POSTMAN, JAVA-17, Lombok, 커리어넷 API, MySQL, JPA, React.js, Axios
