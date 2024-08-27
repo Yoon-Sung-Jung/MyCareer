@@ -41,7 +41,7 @@ public class MainController {
 
     @PostMapping("/checkUsername")
     public Boolean checkUsername(@RequestBody UserJoinDTO joinDTO) {
-        return userService.findByUsername(joinDTO.getUsername()) != null;
+        return userService.findByUsername(joinDTO.getUsername()) != null ;
     }
 
     @GetMapping("/getTest/{q}")

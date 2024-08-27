@@ -117,79 +117,92 @@ const Register = () => {
     return (
         <>
             <Form onSubmit={registerUser}>
-                <label htmlFor='username'>아이디</label>
-                <input type="text"
-                    name="username"
-                    id="username"
-                    value={user.username}
-                    onChange={handleChange}
-                    ref={usernameRef} />
-                <Button onClick={checkUsername}>중복 확인</Button>
+                <div>
+                    <label htmlFor='username'>아이디</label>
+                    <input type="text"
+                        name="username"
+                        id="username"
+                        value={user.username}
+                        onChange={handleChange}
+                        ref={usernameRef} />
+                    <Button onClick={checkUsername}>중복 확인</Button>
+                </div>
 
-                <label htmlFor='name'>이름</label>
-                <input type="text"
-                    name="name"
-                    id="name"
-                    value={user.name}
-                    onChange={handleChange} />
+                <div>
+                    <label htmlFor='name'>이름</label>
+                    <input type="text"
+                        name="name"
+                        id="name"
+                        value={user.name}
+                        onChange={handleChange} />
+                </div>
 
-                <label>비밀번호</label>
-                <input type="password"
-                    name="password"
-                    id="password"
-                    value={user.password}
-                    ref={passwordRef}
-                    onChange={handleChange} />
-
-                <label>
+                <div>
+                    <label>비밀번호</label>
                     <input type="password"
-                        name="rePassword"
-                        id="rePassword"
-                        value={rePassword}
-                        ref={repasswordRef}
-                        onChange={handleRePW} />
-                </label>
-                <Button onClick={checkPassword} ref={pwCheckRef}>비밀번호 확인</Button>
-
-                <label>이메일</label>
-                <input type="text"
-                    name="emailID"
-                    id="emailID"
-                    value={user.emailID}
-                    onChange={handleChange} />
-                @
-                <input type="text"
-                    name="emailDomain"
-                    id="emailDomain"
-                    value={user.emailDomain}
-                    onChange={handleChange} />
-
-                <label>신분</label>
-                <label>
-                    학생<input
-                        type="radio"
-                        id="identityS"
-                        name="identity"
-                        value="학생"
+                        name="password"
+                        id="password"
+                        value={user.password}
+                        ref={passwordRef}
                         onChange={handleChange} />
-                </label>
-                <label>
-                    일반<input
-                        type="radio"
-                        id="identityG"
-                        name="identity"
-                        value="일반"
-                        onChange={handleChange} />
+                </div>
 
-                </label>
-                <label>
-                    교사<input
-                        type="radio"
-                        id="identityT"
-                        name="identity"
-                        value="교사"
+                <div>
+                    <label>
+                        <input type="password"
+                            name="rePassword"
+                            id="rePassword"
+                            value={rePassword}
+                            ref={repasswordRef}
+                            onChange={handleRePW} />
+                    </label>
+                    <Button onClick={checkPassword} ref={pwCheckRef}>비밀번호 확인</Button>
+                </div>
+
+
+                <div>
+                    <label>이메일</label>
+                    <input type="text"
+                        name="emailID"
+                        id="emailID"
+                        value={user.emailID}
                         onChange={handleChange} />
-                </label>
+                    @
+                    <input type="text"
+                        name="emailDomain"
+                        id="emailDomain"
+                        value={user.emailDomain}
+                        onChange={handleChange} />
+                </div>
+
+                <div>
+                    <label>신분</label>
+                    <label>
+                        학생<input
+                            type="radio"
+                            id="identityS"
+                            name="identity"
+                            value="학생"
+                            onChange={handleChange} />
+                    </label>
+                    <label>
+                        일반<input
+                            type="radio"
+                            id="identityG"
+                            name="identity"
+                            value="일반"
+                            onChange={handleChange} />
+
+                    </label>
+                    <label>
+                        교사<input
+                            type="radio"
+                            id="identityT"
+                            name="identity"
+                            value="교사"
+                            onChange={handleChange} />
+                    </label>
+                </div>
                 <Button type="submit">회원가입</Button>
 
             </Form>
